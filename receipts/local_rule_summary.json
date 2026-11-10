@@ -1,0 +1,78 @@
+{
+ "training|r=0": {
+  "same_shape_tasks": 680,
+  "cells": 178803,
+  "forced_cells": 45893,
+  "forced_cov": 0.2567,
+  "forced_precision": 0.93788,
+  "tasks_with_any_forced": 564,
+  "tasks_truth_violates": 82,
+  "viol_hist": {
+   "0": 598,
+   "1": 10,
+   "2": 10,
+   "3": 9,
+   "4": 8,
+   "5": 1,
+   "6": 2,
+   "7": 2
+  }
+ },
+ "training|r=1": {
+  "same_shape_tasks": 680,
+  "cells": 178803,
+  "forced_cells": 59498,
+  "forced_cov": 0.3328,
+  "forced_precision": 0.95899,
+  "tasks_with_any_forced": 612,
+  "tasks_truth_violates": 335,
+  "viol_hist": {
+   "0": 345,
+   "1": 74,
+   "2": 41,
+   "3": 41,
+   "4": 43,
+   "5": 18,
+   "6": 19,
+   "7": 14
+  }
+ },
+ "evaluation|r=0": {
+  "same_shape_tasks": 81,
+  "cells": 58205,
+  "forced_cells": 17319,
+  "forced_cov": 0.2976,
+  "forced_precision": 0.7348,
+  "tasks_with_any_forced": 65,
+  "tasks_truth_violates": 30,
+  "viol_hist": {
+   "0": 51,
+   "1": 1,
+   "3": 1,
+   "5": 2,
+   "7": 1,
+   "8": 1,
+   "9": 2,
+   "11": 1
+  }
+ },
+ "evaluation|r=1": {
+  "same_shape_tasks": 81,
+  "cells": 58205,
+  "forced_cells": 10674,
+  "forced_cov": 0.1834,
+  "forced_precision": 0.92814,
+  "tasks_with_any_forced": 68,
+  "tasks_truth_violates": 57,
+  "viol_hist": {
+   "0": 24,
+   "1": 12,
+   "2": 3,
+   "3": 4,
+   "4": 4,
+   "5": 2,
+   "6": 2,
+   "7": 2
+  }
+ }
+}
