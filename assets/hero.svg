@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="FATE. Likely orders. Allowed demotes.">
+  <defs>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#1b212b"/></pattern>
+    <linearGradient id="fade" x1="0" x2="1"><stop offset="0" stop-color="#0a0c10" stop-opacity="1"/><stop offset="1" stop-color="#0a0c10" stop-opacity="0"/></linearGradient>
+    <style>
+      .sans{font-family:ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+    </style>
+  </defs>
+  <rect width="1200" height="400" rx="20" fill="#0a0c10"/>
+  <rect width="1200" height="400" rx="20" fill="url(#dots)"/>
+  <rect width="640" height="400" rx="20" fill="url(#fade)"/>
+
+  <text x="64" y="150" class="sans" font-size="112" font-weight="800" letter-spacing="6" fill="#f4f1ea">FATE</text>
+  <text x="68" y="206" class="sans" font-size="30" font-weight="600" fill="#9aa4b2"><tspan fill="#5ad1c3">Likely</tspan> orders. <tspan fill="#f2b134">Allowed</tspan> demotes.</text>
+  <text x="68" y="246" class="sans" font-size="18" fill="#7d8796">The model ranks the answers. The task's own laws push one down.</text>
+  <text x="68" y="336" class="mono" font-size="13" letter-spacing="3" fill="#5c6675">ARC PRIZE 2026 · ARC-AGI-2 · JOSHUA MATTHEW CARTER</text>
+
+  <!-- attempt bracket -->
+  <g class="mono" font-size="11" letter-spacing="2" fill="#5c6675">
+    <path d="M708 62 h-8 v128 h8" stroke="#5ad1c3" stroke-width="2" fill="none" opacity=".8"/>
+    <text x="690" y="130" text-anchor="middle" transform="rotate(-90 690 130)">2 ATTEMPTS</text>
+  </g>
+
+  <!-- card template: 380x56 -->
+  <g id="A">
+    <animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite" values="0 0;0 0;0 210;0 210;0 0" keyTimes="0;.32;.52;.9;1" calcMode="spline" keySplines="0 0 1 1;.6 0 .2 1;0 0 1 1;.6 0 .2 1"/>
+    <rect x="724" y="62" width="400" height="56" rx="10" fill="#141922" stroke="#2a313d">
+      <animate attributeName="stroke" dur="8s" repeatCount="indefinite" values="#2a313d;#2a313d;#e0605a;#e0605a;#2a313d" keyTimes="0;.22;.32;.9;1"/>
+    </rect>
+    <g transform="translate(740 72)"><rect width="10" height="10" fill="#5ad1c3"/><rect x="12" width="10" height="10" fill="#e0605a"/><rect x="24" width="10" height="10" fill="#5ad1c3"/><rect y="12" width="10" height="10" fill="#e0605a"/><rect x="12" y="12" width="10" height="10" fill="#5ad1c3"/><rect x="24" y="12" width="10" height="10" fill="#e0605a"/><rect y="24" width="10" height="10" fill="#5ad1c3"/><rect x="12" y="24" width="10" height="10" fill="#e0605a"/><rect x="24" y="24" width="10" height="10" fill="#5ad1c3"/></g>
+    <text x="796" y="96" class="mono" font-size="16" fill="#c9d1db">p = 0.41</text>
+    <text x="1106" y="96" text-anchor="end" class="mono" font-size="13" fill="#e0605a" opacity="0">✕ breaks palette
+      <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;1;0" keyTimes="0;.2;.28;.9;1"/></text>
+  </g>
+  <g id="B">
+    <animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite" values="0 0;0 0;0 -70;0 -70;0 0" keyTimes="0;.32;.52;.9;1" calcMode="spline" keySplines="0 0 1 1;.6 0 .2 1;0 0 1 1;.6 0 .2 1"/>
+    <rect x="724" y="132" width="400" height="56" rx="10" fill="#141922" stroke="#2a313d"/>
+    <g transform="translate(740 142)"><rect width="10" height="10" fill="#f2b134"/><rect x="12" width="10" height="10" fill="#2c3440"/><rect x="24" width="10" height="10" fill="#f2b134"/><rect y="12" width="10" height="10" fill="#2c3440"/><rect x="12" y="12" width="10" height="10" fill="#f2b134"/><rect x="24" y="12" width="10" height="10" fill="#2c3440"/><rect y="24" width="10" height="10" fill="#f2b134"/><rect x="12" y="24" width="10" height="10" fill="#2c3440"/><rect x="24" y="24" width="10" height="10" fill="#f2b134"/></g>
+    <text x="796" y="166" class="mono" font-size="16" fill="#c9d1db">p = 0.33</text>
+    <text x="1106" y="166" text-anchor="end" class="mono" font-size="13" fill="#5ad1c3">✓ allowed</text>
+  </g>
+  <g id="C">
+    <animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite" values="0 0;0 0;0 -70;0 -70;0 0" keyTimes="0;.32;.52;.9;1" calcMode="spline" keySplines="0 0 1 1;.6 0 .2 1;0 0 1 1;.6 0 .2 1"/>
+    <rect x="724" y="202" width="400" height="56" rx="10" fill="#141922" stroke="#2a313d"/>
+    <g transform="translate(740 212)"><rect width="10" height="10" fill="#2c3440"/><rect x="12" width="10" height="10" fill="#f2b134"/><rect x="24" width="10" height="10" fill="#2c3440"/><rect y="12" width="10" height="10" fill="#f2b134"/><rect x="12" y="12" width="10" height="10" fill="#f2b134"/><rect x="24" y="12" width="10" height="10" fill="#f2b134"/><rect y="24" width="10" height="10" fill="#2c3440"/><rect x="12" y="24" width="10" height="10" fill="#f2b134"/><rect x="24" y="24" width="10" height="10" fill="#2c3440"/></g>
+    <text x="796" y="236" class="mono" font-size="16" fill="#c9d1db">p = 0.17</text>
+    <text x="1106" y="236" text-anchor="end" class="mono" font-size="13" fill="#5ad1c3">✓ allowed</text>
+  </g>
+  <g id="D">
+    <animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite" values="0 0;0 0;0 -70;0 -70;0 0" keyTimes="0;.32;.52;.9;1" calcMode="spline" keySplines="0 0 1 1;.6 0 .2 1;0 0 1 1;.6 0 .2 1"/>
+    <rect x="724" y="272" width="400" height="56" rx="10" fill="#141922" stroke="#2a313d"/>
+    <g transform="translate(740 282)"><rect width="10" height="10" fill="#f2b134"/><rect x="12" width="10" height="10" fill="#f2b134"/><rect x="24" width="10" height="10" fill="#2c3440"/><rect y="12" width="10" height="10" fill="#2c3440"/><rect x="12" y="12" width="10" height="10" fill="#2c3440"/><rect x="24" y="12" width="10" height="10" fill="#f2b134"/><rect y="24" width="10" height="10" fill="#f2b134"/><rect x="12" y="24" width="10" height="10" fill="#2c3440"/><rect x="24" y="24" width="10" height="10" fill="#2c3440"/></g>
+    <text x="796" y="306" class="mono" font-size="16" fill="#c9d1db">p = 0.09</text>
+    <text x="1106" y="306" text-anchor="end" class="mono" font-size="13" fill="#5ad1c3">✓ allowed</text>
+  </g>
+  <text x="924" y="360" text-anchor="middle" class="mono" font-size="12" letter-spacing="2" fill="#5c6675">DEMOTED, NEVER DELETED</text>
+</svg>

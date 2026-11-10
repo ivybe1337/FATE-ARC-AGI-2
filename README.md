@@ -1,52 +1,89 @@
-# FATE: ARC Prize 2026, ARC-AGI-2
+<p align="center">
+  <img src="assets/hero.svg" width="100%" alt="FATE. Likely orders. Allowed demotes.">
+</p>
 
-This is my code submission for the ARC-AGI-2 track of ARC Prize 2026.
+<p align="center">
+  <a href="https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2"><img src="https://img.shields.io/badge/ARC_Prize_2026-ARC--AGI--2-f2b134?style=for-the-badge&labelColor=0a0c10" alt="ARC Prize 2026, ARC-AGI-2"></a>
+  <a href="https://www.kaggle.com/code/netphantom17/fate-ssm-final"><img src="https://img.shields.io/badge/Kaggle_score-29.72-5ad1c3?style=for-the-badge&labelColor=0a0c10" alt="Kaggle score 29.72"></a>
+  <a href="https://www.kaggle.com/code/netphantom17/fate-ssm-final"><img src="https://img.shields.io/badge/submission-57913192-9aa4b2?style=for-the-badge&labelColor=0a0c10" alt="Submission 57913192"></a>
+</p>
+<p align="center">
+  <a href="https://doi.org/10.5281/zenodo.24093939"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.24093939.svg" alt="DOI 10.5281/zenodo.24093939"></a>
+  <a href="PREREG.md"><img src="https://img.shields.io/badge/pre--registered-before_results-5ad1c3?labelColor=141922" alt="Pre-registered before results"></a>
+  <a href="#the-receipts"><img src="https://img.shields.io/badge/false_exclusions-0-5ad1c3?labelColor=141922" alt="False exclusions: 0"></a>
+  <img src="https://img.shields.io/badge/selection_layer-CPU_only-9aa4b2?labelColor=141922" alt="Selection layer runs on CPU only">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT--0-9aa4b2?labelColor=141922" alt="License MIT-0"></a>
+  <a href="https://www.kaggle.com/code/netphantom17/fate-ssm-final"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open in Kaggle"></a>
+</p>
+
+<h3 align="center">A model can tell you what is likely. It cannot tell you what is allowed.<br>FATE keeps those two jobs apart. That is the whole idea, and it is mine.</h3>
+
+---
+
+## At a glance
 
 | | |
 |---|---|
-| Kaggle notebook | [netphantom17/fate-ssm-final](https://www.kaggle.com/code/netphantom17/fate-ssm-final) |
-| Submission | 57913192, public score **29.72** |
-| Earlier submission, same layer | 57677356, public score 28.06 |
-| Paper | [*Likely and Allowed*](https://ivybe1337.github.io/Survival-Mechanics/), DOI [10.5281/zenodo.24093939](https://doi.org/10.5281/zenodo.24093939) |
+| **The rule** | Likelihood may **order** the candidates. Only a law of the task may **demote** one. Nothing is ever deleted. |
+| **Generator** | The open NVARC pipeline: Qwen3-4B (4 billion parameters), per-task LoRA test-time training, DFS decoding. Used unmodified. Not mine. |
+| **My layer** | FATE: a demonstration ledger and a certified program search. 720 lines of Python with tests, shipped as one 15.5 KB file. CPU only. No training, no weights. |
+| **Score** | **29.72** on the Kaggle ARC-AGI-2 leaderboard (submission 57913192). The same layer scored 28.06 in an earlier run (57677356). |
+| **Safety** | In every recorded run, the ledger never demoted a true answer. 0 false exclusions. |
 
-## The idea
+## Why it works
 
-A model's likelihood tells you what is probable. It does not tell you what the task allows. FATE keeps those two jobs apart.
+**1. Every answer has two properties, and a language model only sees one.**
+How probable an answer is, and whether the task allows it. A model trained on grids gets very good at the first. It has no built-in handle on the second. ARC tasks hide hard laws in their demonstrations: what shape the output takes, which colours may appear, how many cells of each colour come through. Those are not preferences. An answer that breaks one is wrong no matter how confident the model is about it.
 
-The candidate answers come from the open NVARC pipeline: Qwen3-4B (`sorokin/qwen3_4b_grids15_sft139`), per-task LoRA test-time training, DFS decoding and augmentation re-scoring. I use it unmodified. It is not my work and the score belongs to the pipeline and my layer together.
+**2. The ledger only believes a law that every demonstration obeys.**
+It checks four: the shape rule (same as the input, or transposed), the palette (which colours an output may introduce), the exact colour count, and the sorted colour profile. A law enters the ledger only if it holds on every single demonstration pair. So a demotion can only cost me if the hidden answer breaks a law that every example obeyed. That is the one way this layer can fail. It is checkable, and I checked it: it never happened.
 
-My part is the final selection, under one rule:
+**3. Demote, don't delete.**
+A candidate that breaks the ledger moves behind every candidate that keeps it. It stays in the pool. If fewer than two candidates are admissible, the model's own order fills both attempts. The worst case is bounded by construction: the layer can only lose to the baseline on a false exclusion, and I pre-registered that prediction before reading a single result.
 
-> The model's score may **order** candidates. Only an admissibility rule mined from the demonstrations may **demote** them. Nothing is ever deleted.
+**4. Deleting by likelihood is the mistake, and the control proves it.**
+I ran the tempting alternative as a control (V4): throw out anything the model finds too unlikely. On the largest recorded run it lost a correct answer the baseline had. My layer won one the baseline missed. Unlikely is not impossible. That one sentence is the theory, and here it is in a leaderboard pipeline.
 
-The admissibility rule is a ledger read off the demonstration pairs:
+**5. Certify, or stay out of the way.**
+FATE also searches for an exact program, meeting in the middle at depth 2 from each side plus a colour map, and trusts one only if it reproduces every demonstration exactly. On the 1,000 training tasks, 15 certify and 14 of those are right. On the 120 evaluation tasks, none certify. So the submitted variant uses the ledger, not the program search. I report the search anyway, because a certificate that stays silent when it has nothing is the point.
 
-1. the output shape rule (same as the input, or transposed),
-2. the palette (which colours an output may introduce),
-3. the exact colour count,
-4. the sorted colour profile.
+## How it fits together
 
-An invariant enters the ledger only if every demonstration pair obeys it. A candidate that breaks the ledger is moved behind every candidate that keeps it. If fewer than two admissible candidates exist, the two attempt slots still fill from the model's order, so the layer can never empty a slot.
+```mermaid
+flowchart LR
+    T[Task demonstrations] --> G[NVARC generator<br/>Qwen3-4B + LoRA test-time training]
+    G --> P[Candidate pool]
+    P --> O[Order by likelihood]
+    T --> L[Ledger<br/>shape · palette · count · profile<br/>only laws every demo obeys]
+    O --> D{Breaks a law?}
+    L --> D
+    D -- no --> K[Keep its rank]
+    D -- yes --> M[Move behind every admissible candidate]
+    K --> S[Two attempts]
+    M --> S
+    T --> F[FATE program search] -. certified only .-> S
+```
 
-The submitted variant is **V1** (ledger demotion). The variants were fixed in [`PREREG.md`](PREREG.md) before any candidate pool or precision result was read:
+## The receipts
 
-| Variant | Rule |
-|---|---|
-| V0 | the pipeline's own score, unchanged |
-| V1 | V0 order, ledger-inadmissible candidates demoted |
-| V2 | a FATE-certified program, if one exists, fills attempt 1 |
-| V3 | V2 and V1 together |
-| V4 | control: delete by likelihood threshold, which the rule forbids |
+Every variant was fixed in [`PREREG.md`](PREREG.md) before any pool or precision number was read. These are recorded NVARC candidate pools on public evaluation tasks, scored against the public answers.
 
-## FATE, the certified program search
+| Run | Tasks | Test outputs | Truth anywhere in pool | Truth admitted by ledger | V0 baseline | **V1 (submitted)** | V4 delete-by-likelihood |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| pilot | 8 | 10 | 30.0% | 10 / 10 | 3 | **3** | 3 |
+| partial | 67 | 93 | 34.4% | 93 / 93 | 27 | **28** | 26 |
+| full | 18 | 28 | 17.9% | 28 / 28 | 3 | **3** | 3 |
 
-`fate_ssm/fate_arc.py` and `fate_ssm/fate_engine.py` run an exact meet-in-the-middle search over grid bijections (depth 2 from each side, plus a colour map). A program is **certified** only if it reproduces every demonstration pair exactly. A certified program's output is a positive certificate; a candidate the ledger rules out is a certified exclusion. Everything else stays unknown and is ordered by the model.
+On the partial run, V1 against V0 is 1 win and 0 losses. V4 against V0 is 0 wins and 1 loss.
 
-Measured precision of certified programs (`receipts/fate_precision_summary.json`): on the 1,000 training tasks, 15 tasks certify and 14 of those are correct. On the 120 evaluation tasks, none certify. That is why the submitted variant is V1, not V2.
+The column that matters most is "truth anywhere in pool". Selection can only pick what the generator produced. Pool recall is the ceiling, and it is far above what any selection rule moves. I predicted that too (P7). FATE is a guarantee about what it will never throw away, not a trick that invents answers.
 
-## Terms
+## The theory behind it
 
-The notebook was written in my working vocabulary. The paper's names:
+This is the applied side of my paper, [*Likely and Allowed: The Joint State of Prediction and Admissibility*](https://ivybe1337.github.io/Survival-Mechanics/) ([DOI 10.5281/zenodo.24093939](https://doi.org/10.5281/zenodo.24093939)). Its headline result: a forecaster that ignores which futures a rule still allows can be forced to be wrong by nearly as much as any forecaster can, with error approaching 1 − 1/d on a d-symbol alphabet. The fix is to carry two states, one for what is likely and one for what is allowed. In FATE the model is the first, the ledger is the second, and neither is allowed to do the other's job.
+
+<details>
+<summary><b>Notebook terms → paper terms</b></summary>
 
 | Notebook | Paper |
 |---|---|
@@ -58,43 +95,78 @@ The notebook was written in my working vocabulary. The paper's names:
 | FATE-certified program (V2) | certified admissible, status A |
 | nogood, certified elimination | certified exclusion, status X |
 
-## Layout
+</details>
+
+<details>
+<summary><b>The five pre-registered variants</b></summary>
+
+| Variant | Rule |
+|---|---|
+| V0 | the pipeline's own score, unchanged |
+| V1 | V0 order, ledger-inadmissible candidates demoted (submitted) |
+| V2 | a FATE-certified program, when one exists, fills attempt 1 |
+| V3 | V2 and V1 together |
+| V4 | control: delete by likelihood threshold, which my rule forbids |
+
+</details>
+
+<details>
+<summary><b>Repository layout</b></summary>
 
 ```
 notebook/                 the submitted Kaggle notebook and its metadata
-fate_ssm/                 the selection layer and FATE, as a package
+fate_ssm/
   ledger.py               the demonstration ledger
   select_pool.py          variants V0 to V4 over a candidate pool
   fate_arc.py             FATE program search on ARC grids
   fate_engine.py          the meet-in-the-middle engine
   local_rule.py           local cell rules (offline study)
-  entry.py                the notebook entry points
-  tests_fate.py           tests for FATE
-  tests_select.py         tests for the selection layer
-build_runtime.py          concatenates the package into fate_ssm_runtime.py
+  entry.py                notebook entry points
+  tests_fate.py           FATE tests
+  tests_select.py         selection tests
+build_runtime.py          packs fate_ssm into one file
 fate_ssm_runtime.py       the single file the notebook writes to disk
 make_final_kernel.py      builds the notebook from the NVARC baseline
-eval_pools.py             offline comparison of the variants on recorded pools
+eval_pools.py             offline comparison of the variants
 fate_precision.py         precision of certified programs
 local_rule_stats.py       coverage and precision of local rules
-receipts/                 the precision and local-rule results
+receipts/                 precision and local-rule results
 PREREG.md                 the pre-registration
 ```
 
-## Running
+</details>
 
-```
+## Run it
+
+```bash
 pip install numpy scipy
 python -m fate_ssm.tests_fate
 python -m fate_ssm.tests_select
-export ARC_DATA=/path/to/arc-prize-2026-arc-agi-2/
+export ARC_DATA=/path/to/arc-prize-2026-arc-agi-2
 python fate_precision.py
 ```
 
-`ARC_DATA` is the folder holding the competition's `arc-agi_*_challenges.json` and `arc-agi_*_solutions.json`. The full pipeline needs a GPU and runs on Kaggle; the notebook is the reference.
+`ARC_DATA` holds the competition's `arc-agi_*_challenges.json` and `arc-agi_*_solutions.json`. The full generator needs a GPU and runs on Kaggle; the notebook is the reference build.
+
+## Cite
+
+```bibtex
+@software{carter_fate_2026,
+  author = {Carter, Joshua Matthew},
+  title  = {FATE: admissibility selection for ARC-AGI-2},
+  year   = {2026},
+  url    = {https://github.com/ivybe1337/FATE-ARC-AGI-2}
+}
+@misc{carter_likely_allowed_2026,
+  author = {Carter, Joshua Matthew},
+  title  = {Likely and Allowed: The Joint State of Prediction and Admissibility},
+  year   = {2026},
+  doi    = {10.5281/zenodo.24093939}
+}
+```
 
 ## License
 
-My code in this repository is released under [MIT-0](LICENSE). The NVARC pipeline cells in the notebook and `sorokin/pip-install-unsloth-flash-patch` belong to their authors and stay under their terms.
+My code is [MIT-0](LICENSE). The NVARC pipeline cells in the notebook and `sorokin/pip-install-unsloth-flash-patch` belong to their authors and stay under their terms.
 
-Joshua Matthew Carter
+<p align="center"><sub>Joshua Matthew Carter · iVybe</sub></p>
