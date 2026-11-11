@@ -1,0 +1,30 @@
+{
+ "shape": {
+  "outputs_active": 110,
+  "wrong_candidates": 816,
+  "wrong_violating": 0,
+  "outputs_with_violation": 0,
+  "rate": 0.0
+ },
+ "palette": {
+  "outputs_active": 157,
+  "wrong_candidates": 1155,
+  "wrong_violating": 1,
+  "outputs_with_violation": 1,
+  "rate": 0.0009
+ },
+ "count": {
+  "outputs_active": 9,
+  "wrong_candidates": 74,
+  "wrong_violating": 48,
+  "outputs_with_violation": 8,
+  "rate": 0.6486
+ },
+ "profile": {
+  "outputs_active": 3,
+  "wrong_candidates": 22,
+  "wrong_violating": 22,
+  "outputs_with_violation": 3,
+  "rate": 1.0
+ }
+}
