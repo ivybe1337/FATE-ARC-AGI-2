@@ -15,7 +15,7 @@
   <a href="https://www.kaggle.com/code/netphantom17/fate-ssm-final"><img src="https://kaggle.com/static/images/open-in-kaggle.svg" alt="Open in Kaggle"></a>
 </p>
 
-<h3 align="center">A model can tell you what is likely. It cannot tell you what is allowed.<br>FATE keeps those two jobs apart. That is the whole idea, and it is mine.</h3>
+<h3 align="center">A model can tell you what is likely. It cannot tell you what is allowed.<br>FATE keeps those two jobs apart, under one rule from my theory, <i>Likely and Allowed</i>.</h3>
 
 ---
 
